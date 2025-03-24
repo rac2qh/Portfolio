@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio - Redwan Chowdhury</title>
+  <!-- Import Montserrat from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: 'Montserrat', sans-serif; 
+      background-color: #000; 
+      color: #d4af37; 
+      padding: 20px; 
+    }
+    nav {
+      background: #000;
+      color: #d4af37;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    nav ul li { margin: 0 15px; }
+    nav ul li a {
+      color: #d4af37;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover { color: #fff; }
+    .container {
+      max-width: 1000px;
+      margin: 80px auto;
+      background: #000;
+      padding: 20px;
+      border: 2px solid #d4af37;
+      border-radius: 8px;
+    }
+    h1 { text-align: center; margin-bottom: 20px; }
+    .section-title {
+      font-size: 1.4rem;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 5px;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    thead { background-color: #d4af37; color: #000; }
+    th, td {
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid #444;
+    }
+    tfoot td {
+      font-weight: bold;
+      background: #333;
+    }
+    .summary {
+      text-align: right;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#youtube">YouTube</a></li>
+      <li><a href="#instagram">Instagram</a></li>
+      <li><a href="contact.html">Contact Me</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Portfolio</h1>
+    <div id="portfolio-output">Loading portfolio data...</div>
+  </div>
+
+  <script>
+    /*********************************************
+     *              PORTFOLIO DATA              *
+     *********************************************/
+    const portfolio = {
+      stocks: {
+        "GOOGL": 10.0046,
+        "AAPL": 70.0801,
+        "CRWD": 10,
+        "FTNT": 60,
+        "MSFT": 20.0349,
+        "PANW": 40,
+        "VOO": 80.27,
+        "VTI": 60.1988,
+        "CASH": 120.81
+      },
+      crypto: {
+        // Each key is the CoinGecko ID; value includes amount and abbreviation.
+        "crypto-com-chain": { amount: 4230.08, abbr: "CRO" },
+        "ethereum": { amount: 15.358, abbr: "ETH" },
+        "ondo-finance": { amount: 12777.8, abbr: "ONDO" },
+        "ripple": { amount: 1050.1, abbr: "XRP" },
+        "chainlink": { amount: 162.63, abbr: "LINK" },
+        "hedera-hashgraph": { amount: 11880.6, abbr: "HBAR" },
+        "render-network-token": { amount: 630.7, abbr: "RENDER" },
+        "bitcoin": { amount: 0.021652, abbr: "BTC" },
+        "solana": { amount: 11.067, abbr: "SOL" },
+        "internet-computer": { amount: 194.5, abbr: "ICP" },
+        "stellar": { amount: 4021, abbr: "XLM" },
+        "plume": { amount: 5150, abbr: "PLUME" },
+        "shiba-inu": { amount: 70000000, abbr: "SHIB" },
+        "zro": { amount: 114.3, abbr: "ZRO" },
+        "quant-network": { amount: 4.5, abbr: "QNT" },
+        "near": { amount: 94.9, abbr: "NEAR" },
+        "tia": { amount: 73.9, abbr: "TIA" },
+        "pyth-network": { amount: 1541.7, abbr: "PYTH" },
+        "optimism": { amount: 285, abbr: "OP" },
+        "axl": { amount: 556.4, abbr: "AXL" },
+        "polkadot": { amount: 53.1, abbr: "DOT" },
+        "cardano": { amount: 329.4, abbr: "ADA" },
+        "injective-protocol": { amount: 22.83, abbr: "INJ" },
+        "aave": { amount: 1.014, abbr: "AAVE" },
+        "avalanche-2": { amount: 9.33, abbr: "AVAX" },
+        "mina-protocol": { amount: 657.1, abbr: "MINA" },
+        "w": { amount: 1451.9, abbr: "W" },
+        "flux": { amount: 660.7, abbr: "FLUX" },
+        "arweave": { amount: 23, abbr: "AR" },
+        "immutable-x": { amount: 282.7, abbr: "IMX" },
+        "akash-network": { amount: 116.4, abbr: "AKT" },
+        "fetch-ai": { amount: 284.8, abbr: "FET" },
+        "beamx": { amount: 16873, abbr: "BEAMX" },
+        "sui": { amount: 54, abbr: "SUI" },
+        "peaq": { amount: 906.5, abbr: "PEAQ" },
+        "ena": { amount: 267.4, abbr: "ENA" }
+      }
+    };
+
+    /*********************************************
+     *         CONFIG: CACHE & API CALLS         *
+     *********************************************/
+    const CACHE_EXPIRATION = 3600000; // 1 hour in ms
+    const FMP_API_KEY = "Fc9oyaB0wNnrCJfKqt6PWOzdKaYgruh5";
+
+    async function fetchStockPrices(tickers) {
+      const filteredTickers = tickers.filter(ticker => ticker !== "CASH");
+      const fmpUrl = "https://financialmodelingprep.com/api/v3/quote/" 
+                     + filteredTickers.join(",") 
+                     + "?apikey=" + FMP_API_KEY;
+      const cacheKey = "stockPricesCache";
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        const cachedData = JSON.parse(cached);
+        if (Date.now() - cachedData.timestamp < CACHE_EXPIRATION) {
+          return cachedData.data;
+        }
+      }
+      try {
+        const response = await fetch(fmpUrl);
+        const data = await response.json();
+        const results = {};
+        data.forEach(item => {
+          results[item.symbol] = item.price;
+        });
+        localStorage.setItem(cacheKey, JSON.stringify({
+          timestamp: Date.now(),
+          data: results
+        }));
+        return results;
+      } catch (error) {
+        console.error("Error fetching stock prices:", error);
+        return {};
+      }
+    }
+
+    async function fetchCryptoPrices(cryptoIds) {
+      const url = "https://api.coingecko.com/api/v3/simple/price?ids=" 
+                  + cryptoIds.join(",") 
+                  + "&vs_currencies=usd";
+      const cacheKey = "cryptoPricesCache";
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        const cachedData = JSON.parse(cached);
+        if (Date.now() - cachedData.timestamp < CACHE_EXPIRATION) {
+          return cachedData.data;
+        }
+      }
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        localStorage.setItem(cacheKey, JSON.stringify({
+          timestamp: Date.now(),
+          data: data
+        }));
+        return data;
+      } catch (error) {
+        console.error("Error fetching crypto prices:", error);
+        return {};
+      }
+    }
+
+    function createTableHTML(rows, totals, tableTitle, showAbbr = false) {
+      let table = `
+        <div class="section-title">${tableTitle}</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              ${showAbbr ? "<th>Abbreviation</th>" : ""}
+              <th>Holdings</th>
+              <th>Price (USD)</th>
+              <th>Value (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      rows.forEach(row => {
+        table += `<tr>
+          <td>${row.symbol || row.id}</td>
+          ${showAbbr ? `<td>${row.abbr || ""}</td>` : ""}
+          <td>${row.amount.toFixed(4)}</td>
+          <td>$${row.price.toFixed(2)}</td>
+          <td>$${row.value.toFixed(2)}</td>
+        </tr>`;
+      });
+      table += `
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="${showAbbr ? 4 : 3}">Subtotal</td>
+              <td>$${totals.sum.toFixed(2)}</td>
+            </tr>
+          </tfoot>
+        </table>
+      `;
+      return table;
+    }
+
+    async function calculatePortfolioValue() {
+      // Process Stocks
+      const stockTickers = Object.keys(portfolio.stocks);
+      const stockPrices = await fetchStockPrices(stockTickers);
+      let stockRows = [];
+      let stockSum = 0;
+      for (const [ticker, amount] of Object.entries(portfolio.stocks)) {
+        const price = (ticker === "CASH") ? 1 : (stockPrices[ticker] || 0);
+        const value = price * amount;
+        stockSum += value;
+        stockRows.push({ symbol: ticker, amount: amount, price: price, value: value });
+      }
+
+      // Process Crypto
+      const cryptoIds = Object.keys(portfolio.crypto);
+      const cryptoPricesData = await fetchCryptoPrices(cryptoIds);
+      let cryptoRows = [];
+      let cryptoSum = 0;
+      for (const [id, data] of Object.entries(portfolio.crypto)) {
+        const amount = data.amount;
+        const abbr = data.abbr;
+        const price = (cryptoPricesData[id] && cryptoPricesData[id].usd) || 0;
+        const value = price * amount;
+        cryptoSum += value;
+        cryptoRows.push({ id: id, abbr: abbr, amount: amount, price: price, value: value });
+      }
+
+      const stockTableHTML = createTableHTML(stockRows, { sum: stockSum }, "Stocks");
+      const cryptoTableHTML = createTableHTML(cryptoRows, { sum: cryptoSum }, "Crypto", true);
+      const grandTotal = stockSum + cryptoSum;
+      const portfolioOutput = `
+        ${stockTableHTML}
+        ${cryptoTableHTML}
+        <div class="section-title">Overall Portfolio</div>
+        <div class="summary">
+          <p>Total Stocks: $${stockSum.toFixed(2)}</p>
+          <p>Total Crypto: $${cryptoSum.toFixed(2)}</p>
+          <p><strong>Grand Total: $${grandTotal.toFixed(2)}</strong></p>
+        </div>
+      `;
+      document.getElementById("portfolio-output").innerHTML = portfolioOutput;
+    }
+
+    window.addEventListener("load", calculatePortfolioValue);
+    setInterval(calculatePortfolioValue, CACHE_EXPIRATION);
+  </script>
+</body>
+</html>
