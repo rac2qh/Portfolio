@@ -7,26 +7,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
   <style>
     /* Basic Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* Use Montserrat globally */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: #000; /* fallback background if image fails to load */
-      color: #d4af37; /* gold text color */
+      background: #000;
+      color: #d4af37;
     }
-
     /* Navigation Bar */
     nav {
-      background: #000; /* black nav background */
-      color: #d4af37;   /* gold text color */
+      background: #000;
       padding: 10px 20px;
       position: fixed;
       top: 0;
@@ -37,46 +28,35 @@
       list-style: none;
       display: flex;
       justify-content: center;
-      align-items: center;
     }
-    nav ul li {
-      margin: 0 15px;
-    }
+    nav ul li { margin: 0 15px; }
     nav ul li a {
-      color: #d4af37; /* gold */
+      color: #d4af37;
       text-decoration: none;
       font-weight: 700;
       font-size: 16px;
       transition: color 0.3s;
     }
-    nav ul li a:hover {
-      color: #fff; /* hover effect */
-    }
+    nav ul li a:hover { color: #fff; }
 
     /* Hero Section */
     .hero {
-      margin-top: 60px; /* space for fixed nav */
+      margin-top: 60px; /* for fixed nav */
       height: 100vh;
-      width: 100%;
-      /* Update the path to your actual image location */
-      background: url("images/Black Gold Minimalist Elegant Business LinkedIn Banner.png") 
-                  center center / cover no-repeat;
+      background: url("images/Black Gold Minimalist Elegant Business LinkedIn Banner.png") center center / cover no-repeat;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
     }
-
     .hero h1 {
       font-size: 3em;
       margin-bottom: 20px;
-      color: #d4af37; /* gold text */
       font-weight: 700;
     }
-
     .hero #typed-text {
-      border-right: 2px solid #d4af37; /* gold blinking cursor */
+      border-right: 2px solid #d4af37;
       padding-right: 5px;
     }
   </style>
@@ -85,11 +65,14 @@
   <!-- Navigation Bar -->
   <nav>
     <ul>
-      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="investment-portfolio.html">Investment Portfolio</a></li>
+      <li><a href="philanthropy.html">Philanthropy</a></li>
+      <li><a href="books.html">Books I Recommend</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#youtube">YouTube</a></li>
       <li><a href="#instagram">Instagram</a></li>
-      <li><a href="#contact">Contact Me</a></li>
+      <li><a href="contact.html">Contact Me</a></li>
     </ul>
   </nav>
 
@@ -101,7 +84,7 @@
   </div>
 
   <script>
-    // Faster Typewriter Effect
+    // Typewriter effect (faster version)
     const words = ["entrepreneur", "philanthropist", "engineer"];
     let currentWordIndex = 0;
     let currentLetterIndex = 0;
@@ -112,29 +95,26 @@
       const currentWord = words[currentWordIndex];
       const displayedText = currentWord.substring(0, currentLetterIndex);
       typedTextElement.textContent = displayedText;
-
-      let typingSpeed = 80;  // faster typing speed
-      let deletingSpeed = 40; // faster backspacing speed
-
+      
+      let typingSpeed = 80;
+      let deletingSpeed = 40;
+      
       if (!isDeleting && currentLetterIndex < currentWord.length) {
         currentLetterIndex++;
       } else if (isDeleting && currentLetterIndex > 0) {
         currentLetterIndex--;
         typingSpeed = deletingSpeed;
       }
-
-      // Once the word is fully typed, pause briefly, then start deleting
+      
       if (!isDeleting && currentLetterIndex === currentWord.length) {
-        typingSpeed = 1000; // short pause at full word
+        typingSpeed = 1000; // pause at full word
         isDeleting = true;
-      } 
-      // Once the word is fully deleted, move to next word
-      else if (isDeleting && currentLetterIndex === 0) {
+      } else if (isDeleting && currentLetterIndex === 0) {
         isDeleting = false;
         currentWordIndex = (currentWordIndex + 1) % words.length;
         typingSpeed = 500;
       }
-
+      
       setTimeout(type, typingSpeed);
     }
 

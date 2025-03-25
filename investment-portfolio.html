@@ -2,23 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio - Redwan Chowdhury</title>
+  <title>Investment Portfolio - Redwan Chowdhury</title>
   <!-- Import Montserrat from Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Basic Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Montserrat', sans-serif; 
-      background-color: #000; 
-      color: #d4af37; 
-      padding: 20px; 
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #000;
+      color: #d4af37;
     }
     nav {
       background: #000;
-      color: #d4af37;
       padding: 10px 20px;
       position: fixed;
       top: 0;
@@ -29,7 +26,6 @@
       list-style: none;
       display: flex;
       justify-content: center;
-      align-items: center;
     }
     nav ul li { margin: 0 15px; }
     nav ul li a {
@@ -48,7 +44,10 @@
       border: 2px solid #d4af37;
       border-radius: 8px;
     }
-    h1 { text-align: center; margin-bottom: 20px; }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
     .section-title {
       font-size: 1.4rem;
       margin-top: 30px;
@@ -68,10 +67,7 @@
       padding: 10px;
       border-bottom: 1px solid #444;
     }
-    tfoot td {
-      font-weight: bold;
-      background: #333;
-    }
+    tfoot td { font-weight: bold; background: #333; }
     .summary {
       text-align: right;
       font-size: 1.1rem;
@@ -80,11 +76,12 @@
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="investment-portfolio.html">Investment Portfolio</a></li>
+      <li><a href="philanthropy.html">Philanthropy</a></li>
+      <li><a href="books.html">Books I Recommend</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#youtube">YouTube</a></li>
       <li><a href="#instagram">Instagram</a></li>
@@ -93,14 +90,13 @@
   </nav>
 
   <div class="container">
-    <h1>Portfolio</h1>
+    <h1>Investment Portfolio</h1>
     <div id="portfolio-output">Loading portfolio data...</div>
   </div>
 
   <script>
-    /*********************************************
-     *              PORTFOLIO DATA              *
-     *********************************************/
+    // (Reuse the portfolio JavaScript code from previous portfolio page)
+    // For brevity, I'm including the same code here. Replace or modularize as needed.
     const portfolio = {
       stocks: {
         "GOOGL": 10.0046,
@@ -114,7 +110,6 @@
         "CASH": 120.81
       },
       crypto: {
-        // Each key is the CoinGecko ID; value includes amount and abbreviation.
         "crypto-com-chain": { amount: 4230.08, abbr: "CRO" },
         "ethereum": { amount: 15.358, abbr: "ETH" },
         "ondo-finance": { amount: 12777.8, abbr: "ONDO" },
@@ -154,10 +149,7 @@
       }
     };
 
-    /*********************************************
-     *         CONFIG: CACHE & API CALLS         *
-     *********************************************/
-    const CACHE_EXPIRATION = 3600000; // 1 hour in ms
+    const CACHE_EXPIRATION = 3600000; 
     const FMP_API_KEY = "Fc9oyaB0wNnrCJfKqt6PWOzdKaYgruh5";
 
     async function fetchStockPrices(tickers) {
@@ -177,13 +169,8 @@
         const response = await fetch(fmpUrl);
         const data = await response.json();
         const results = {};
-        data.forEach(item => {
-          results[item.symbol] = item.price;
-        });
-        localStorage.setItem(cacheKey, JSON.stringify({
-          timestamp: Date.now(),
-          data: results
-        }));
+        data.forEach(item => { results[item.symbol] = item.price; });
+        localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: results }));
         return results;
       } catch (error) {
         console.error("Error fetching stock prices:", error);
@@ -206,10 +193,7 @@
       try {
         const response = await fetch(url);
         const data = await response.json();
-        localStorage.setItem(cacheKey, JSON.stringify({
-          timestamp: Date.now(),
-          data: data
-        }));
+        localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: data }));
         return data;
       } catch (error) {
         console.error("Error fetching crypto prices:", error);
@@ -255,11 +239,9 @@
     }
 
     async function calculatePortfolioValue() {
-      // Process Stocks
       const stockTickers = Object.keys(portfolio.stocks);
       const stockPrices = await fetchStockPrices(stockTickers);
-      let stockRows = [];
-      let stockSum = 0;
+      let stockRows = [], stockSum = 0;
       for (const [ticker, amount] of Object.entries(portfolio.stocks)) {
         const price = (ticker === "CASH") ? 1 : (stockPrices[ticker] || 0);
         const value = price * amount;
@@ -267,14 +249,11 @@
         stockRows.push({ symbol: ticker, amount: amount, price: price, value: value });
       }
 
-      // Process Crypto
       const cryptoIds = Object.keys(portfolio.crypto);
       const cryptoPricesData = await fetchCryptoPrices(cryptoIds);
-      let cryptoRows = [];
-      let cryptoSum = 0;
+      let cryptoRows = [], cryptoSum = 0;
       for (const [id, data] of Object.entries(portfolio.crypto)) {
-        const amount = data.amount;
-        const abbr = data.abbr;
+        const amount = data.amount, abbr = data.abbr;
         const price = (cryptoPricesData[id] && cryptoPricesData[id].usd) || 0;
         const value = price * amount;
         cryptoSum += value;
